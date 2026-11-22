@@ -4,4 +4,4 @@ Disallow: /archives/
 Disallow: /categories/
 Disallow: /tags/
 
-Sitemap: https://smartfacility.tech/sitemap.xml
+Sitemap: https://www.smartfacility.tech/sitemap.xml

@@ -1,0 +1,52 @@
+{
+  "language": "en",
+  "variant": "smart",
+  "name": "Smart Facility",
+  "shortName": "Engineering journal",
+  "description": "Practical coverage of industrial energy, building systems and smarter operations for facility engineers.",
+  "eyebrow": "Industrial energy & operations",
+  "heading": "Better-performing\nindustrial facilities.",
+  "intro": "A practical journal for engineers working on plant utilities, energy performance and the systems that keep factories running.",
+  "primary": "Explore the journal",
+  "secondary": "Engineering calculators",
+  "image": "smartfacility-operations-centre.webp",
+  "imageAlt": "Industrial operations center overlooking a manufacturing floor",
+  "imageCaption": "Illustration · Industrial operations center",
+  "navLabel": "Main navigation",
+  "skip": "Skip to content",
+  "articles": "Archive",
+  "categories": "Topics",
+  "about": "About",
+  "focus": "Explore by discipline",
+  "library": "From the journal",
+  "archive": "Browse the archive",
+  "searchLabel": "Search articles",
+  "searchPlaceholder": "Search by title, equipment or topic",
+  "more": "Show all articles",
+  "less": "Show fewer articles",
+  "empty": "No articles match. Try another keyword.",
+  "results": "{n} matching articles",
+  "read": "Read article",
+  "privacy": "Privacy",
+  "terms": "Terms",
+  "related": "FactoryEnergy in Chinese",
+  "relatedUrl": "https://factoryenergy.site/",
+  "legalLabel": "Site links",
+  "topics": [
+    {
+      "title": "Industrial energy",
+      "text": "Find opportunities in compressed air, water systems and heat recovery.",
+      "url": "/categories/Energy-Technology/"
+    },
+    {
+      "title": "HVAC & utilities",
+      "text": "Explore cooling systems and air-side performance in manufacturing.",
+      "url": "/categories/HVAC/"
+    },
+    {
+      "title": "Smart operations",
+      "text": "Improve reliability with condition monitoring and maintenance planning.",
+      "url": "/categories/Smart-Factory/"
+    }
+  ]
+}
