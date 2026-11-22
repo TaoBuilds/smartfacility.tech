@@ -1,0 +1,13 @@
+<% const journal = site.data.editorial; %>
+<section class="journal-search-page" data-site-search data-search-count="<%= journal.results %>" data-search-empty="<%= journal.empty %>" data-search-error="<%= journal.searchError %>" data-search-pending="<%= journal.searchPending %>">
+  <form method="get" role="search" class="journal-search-form">
+    <label for="site-query"><%= journal.searchLabel %></label>
+    <div>
+      <input name="q" type="search" id="site-query" aria-controls="site-results" placeholder="<%= journal.fullSearchPlaceholder %>" autocomplete="off">
+      <button class="journal-button journal-button--solid" type="submit"><%= journal.searchButton %></button>
+    </div>
+  </form>
+  <p class="journal-search-status" aria-live="polite" data-site-search-status></p>
+  <div id="site-results" data-site-results></div>
+  <noscript><p><a href="/archives/"><%= journal.archive %></a></p></noscript>
+</section>

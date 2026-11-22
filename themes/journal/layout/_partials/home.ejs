@@ -1,0 +1,72 @@
+<%
+const editorial = site.data.editorial;
+const posts = site.posts.sort('-date').toArray().map(post => {
+  const categories = post.categories.toArray().map(category => category.name);
+  const tags = post.tags.toArray().map(tag => tag.name);
+  return {
+    title: post.title,
+    url: journalPath(post.path),
+    date: post.date.format('YYYY-MM-DD'),
+    category: categories[0],
+    search: [post.title, ...categories, ...tags].join(' '),
+  };
+});
+%>
+<section class="journal-hero">
+  <div class="journal-hero__copy">
+    <p class="journal-kicker"><%= editorial.eyebrow %></p>
+    <h1><%= editorial.heading %></h1>
+    <p class="journal-hero__summary"><%= editorial.intro %></p>
+    <div class="journal-hero__actions">
+      <a class="journal-button journal-button--solid" href="#articles"><%= editorial.primary %></a>
+      <a class="journal-button journal-button--outline" href="https://proengineercalc.xyz/"><%= editorial.secondary %></a>
+    </div>
+  </div>
+  <figure class="journal-hero__visual">
+    <img src="/img/<%= editorial.image %>" alt="<%= editorial.imageAlt %>" width="1536" height="1024" fetchpriority="high">
+    <figcaption><%= editorial.imageCaption %></figcaption>
+  </figure>
+</section>
+
+<section class="journal-topics" aria-labelledby="topic-title">
+  <h2 id="topic-title"><%= editorial.focus %></h2>
+  <div class="journal-topics__grid">
+    <% for (const topic of editorial.topics) { %>
+    <a class="journal-topic" href="<%= topic.url %>">
+      <span class="journal-topic__mark" aria-hidden="true"></span>
+      <h3><%= topic.title %></h3>
+      <p><%= topic.text %></p>
+    </a>
+    <% } %>
+  </div>
+</section>
+
+<section class="journal-library" id="articles" aria-labelledby="article-title" data-journal-library data-matches="<%= editorial.results %>">
+  <div class="journal-section-head">
+    <div>
+      <h2 id="article-title"><%= editorial.library %></h2>
+      <a class="journal-text-link" href="/archives/"><%= editorial.archive %></a>
+    </div>
+    <div class="journal-search" hidden data-journal-search>
+      <label for="journal-query"><%= editorial.searchLabel %></label>
+      <input type="search" id="journal-query" placeholder="<%= editorial.searchPlaceholder %>" aria-controls="journal-stories" autocomplete="off">
+    </div>
+  </div>
+  <p class="journal-status" aria-live="polite" data-journal-status></p>
+  <div class="journal-stories" id="journal-stories">
+    <% for (const [index, post] of posts.entries()) { %>
+    <article class="journal-story" data-search="<%= post.search %>" <% if (index >= 6) { %>hidden<% } %>>
+      <div class="journal-story__meta">
+        <% if (post.category) { %><span><%= post.category %></span><% } %>
+        <time datetime="<%= post.date %>"><%= post.date %></time>
+      </div>
+      <h3><a href="<%= post.url %>"><%= post.title %></a></h3>
+      <span class="journal-story__action" aria-hidden="true"><%= editorial.read %></span>
+    </article>
+    <% } %>
+  </div>
+  <p class="journal-empty" data-journal-empty hidden><%= editorial.empty %></p>
+  <% if (posts.length > 6) { %>
+  <button class="journal-button journal-button--more" type="button" data-journal-more data-show="<%= editorial.more %>" data-hide="<%= editorial.less %>" aria-expanded="false" aria-controls="journal-stories" hidden><%= editorial.more %></button>
+  <% } %>
+</section>

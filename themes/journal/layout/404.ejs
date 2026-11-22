@@ -1,0 +1,9 @@
+<% const journal = site.data.editorial; %>
+<header class="journal-page-head journal-not-found">
+  <p class="journal-breadcrumb">404</p>
+  <h1><%= journal.notFound %></h1>
+  <p><%= journal.notFoundHelp %></p>
+  <div class="journal-head-meta">
+    <a href="/"><%= journal.homeLabel %></a><a href="/archives/"><%= journal.articles %></a><a href="/search/"><%= journal.searchLabel %></a>
+  </div>
+</header>

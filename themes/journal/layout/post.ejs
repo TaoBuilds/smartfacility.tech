@@ -1,0 +1,44 @@
+<%
+const journal = site.data.editorial;
+const categories = page.categories.toArray();
+const tags = page.tags.toArray();
+const body = journalBody(page.content, page.title);
+const date = page.date.format('YYYY-MM-DD');
+const contents = toc(body, {min_depth: 2, max_depth: 3, class: 'journal-toc', list_number: false});
+%>
+<header class="journal-page-head journal-page-head--article">
+  <nav class="journal-breadcrumb" aria-label="<%= journal.breadcrumbLabel %>">
+    <a href="/"><%= journal.homeLabel %></a><span aria-hidden="true">/</span>
+    <a href="/archives/"><%= journal.articles %></a>
+    <% if (categories.length) { %><span aria-hidden="true">/</span><a href="<%= journalPath(categories[0].path) %>"><%= categories[0].name %></a><% } %>
+  </nav>
+  <h1><%= page.title %></h1>
+  <div class="journal-head-meta">
+    <time datetime="<%= date %>"><%= date %></time>
+    <% for (const category of categories) { %><a href="<%= journalPath(category.path) %>"><%= category.name %></a><% } %>
+  </div>
+</header>
+<div class="journal-reading">
+  <article class="journal-prose" id="article-container">
+    <%- body %>
+    <% if (tags.length) { %>
+    <nav class="journal-article-tags" aria-label="<%= journal.tagsLabel %>">
+      <% for (const tag of tags) { %><a href="<%= journalPath(tag.path) %>"><%= tag.name %></a><% } %>
+    </nav>
+    <% } %>
+  </article>
+  <% if (contents) { %>
+  <aside class="journal-article-aside">
+    <details open>
+      <summary><%= journal.tocLabel %></summary>
+      <nav aria-label="<%= journal.tocLabel %>"><%- contents %></nav>
+    </details>
+  </aside>
+  <% } %>
+</div>
+<% if (page.prev || page.next) { %>
+<nav class="journal-neighbors" aria-label="<%= journal.moreArticles %>">
+  <% if (page.prev) { %><a rel="prev" href="<%= journalPath(page.prev.path) %>"><small><%= journal.newerArticle %></small><strong><%= page.prev.title %></strong></a><% } %>
+  <% if (page.next) { %><a rel="next" href="<%= journalPath(page.next.path) %>"><small><%= journal.olderArticle %></small><strong><%= page.next.title %></strong></a><% } %>
+</nav>
+<% } %>
