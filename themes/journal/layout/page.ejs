@@ -1,0 +1,27 @@
+<%
+const journal = site.data.editorial;
+const pagePath = journalPath(page.path);
+const taxonomy = pagePath === '/categories/' ? site.categories : pagePath === '/tags/' ? site.tags : null;
+%>
+<header class="journal-page-head">
+  <nav class="journal-breadcrumb" aria-label="<%= journal.breadcrumbLabel %>">
+    <a href="/"><%= journal.homeLabel %></a><span aria-hidden="true">/</span><span aria-current="page"><%= page.title %></span>
+  </nav>
+  <h1><%= page.title %></h1>
+  <% if (taxonomy) { %>
+  <div class="journal-head-meta"><a href="/search/"><%= journal.searchLabel %></a><a href="<%= pagePath === '/tags/' ? '/categories/' : '/tags/' %>"><%= pagePath === '/tags/' ? journal.categories : journal.tagsLabel %></a></div>
+  <% } %>
+</header>
+<% if (taxonomy) { %>
+<div class="journal-taxonomy">
+  <% for (const item of taxonomy.sort('name').toArray()) { %>
+    <a href="<%= journalPath(item.path) %>">
+      <strong><%= item.name %></strong><span><%= journal.articleCount.replace('{n}', item.length) %></span>
+    </a>
+  <% } %>
+</div>
+<% } else if (pagePath === '/search/') { %>
+  <%- partial('_partials/search') %>
+<% } else { %>
+<article class="journal-prose journal-document" id="article-container"><%- journalBody(page.content, page.title) %></article>
+<% } %>

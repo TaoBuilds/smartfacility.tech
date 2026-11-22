@@ -1,0 +1,40 @@
+<%
+const journal = site.data.editorial;
+const heading = journalTitle(page);
+const posts = page.posts.toArray();
+let year = null;
+%>
+<header class="journal-page-head">
+  <nav class="journal-breadcrumb" aria-label="<%= journal.breadcrumbLabel %>">
+    <a href="/"><%= journal.homeLabel %></a><span aria-hidden="true">/</span>
+    <% if (page.category) { %><a href="/categories/"><%= journal.categories %></a><span aria-hidden="true">/</span><% } %>
+    <% if (page.tag) { %><a href="/tags/"><%= journal.tagsLabel %></a><span aria-hidden="true">/</span><% } %>
+    <span aria-current="page"><%= heading %></span>
+  </nav>
+  <h1><%= heading %></h1>
+  <div class="journal-head-meta">
+    <a href="/search/"><%= journal.searchLabel %></a>
+    <% if (page.archive || page.__index) { %><a href="/categories/"><%= journal.categories %></a><a href="/tags/"><%= journal.tagsLabel %></a><% } %>
+  </div>
+</header>
+<section class="journal-collection" aria-label="<%= heading %>">
+  <% for (const post of posts) { const date = post.date.format('YYYY-MM-DD'); %>
+    <% if (year !== post.date.year()) { year = post.date.year(); %>
+    <h2 class="journal-year"><%= year %></h2>
+    <% } %>
+    <article class="journal-list-row">
+      <time datetime="<%= date %>"><%= date %></time>
+      <div>
+        <h3><a href="<%= journalPath(post.path) %>"><%= post.title %></a></h3>
+        <p><%= journalSummary(post.content, 135, post.title) %></p>
+      </div>
+    </article>
+  <% } %>
+</section>
+<% if (page.total > 1) { %>
+<nav class="journal-pagination" aria-label="<%= journal.paginationLabel %>">
+  <% if (page.prev_link) { %><a rel="prev" href="<%= journalPath(page.prev_link) %>"><%= journal.previousPage %></a><% } %>
+  <span aria-current="page"><%= journal.pageNumber.replace('{n}', page.current).replace('{total}', page.total) %></span>
+  <% if (page.next_link) { %><a rel="next" href="<%= journalPath(page.next_link) %>"><%= journal.nextPage %></a><% } %>
+</nav>
+<% } %>

@@ -48,5 +48,23 @@
       "text": "Improve reliability with condition monitoring and maintenance planning.",
       "url": "/categories/Smart-Factory/"
     }
-  ]
+  ],
+  "homeLabel": "Home",
+  "breadcrumbLabel": "Breadcrumb",
+  "tagsLabel": "Tags",
+  "paginationLabel": "Article pages",
+  "previousPage": "Previous page",
+  "nextPage": "Next page",
+  "pageNumber": "Page {n} of {total}",
+  "tocLabel": "On this page",
+  "moreArticles": "Continue reading",
+  "newerArticle": "Newer article",
+  "olderArticle": "Older article",
+  "articleCount": "{n} articles",
+  "searchButton": "Search",
+  "fullSearchPlaceholder": "Search by equipment, process, or article keyword",
+  "searchPending": "Searching articles…",
+  "searchError": "The search index is unavailable. Try again in a moment.",
+  "notFound": "Page not found",
+  "notFoundHelp": "Browse the archive or search the journal to continue."
 }

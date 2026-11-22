@@ -1,0 +1,65 @@
+<%
+const journal = site.data.editorial;
+const home = page.__index && page.current === 1;
+const pagePath = journalPath(page.path || '');
+const viewTitle = journalTitle(page);
+const title = home ? journal.name + ' · ' + journal.eyebrow : viewTitle + ' | ' + journal.name;
+const description = page.__post ? journalSummary(page.content, 168, page.title) : journal.description;
+const canonical = new URL(pagePath, config.url).href;
+%>
+<!doctype html>
+<html lang="<%= journal.language %>">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="<%= journal.variant === 'factory' ? '#10263d' : '#132b28' %>">
+  <title><%= title %></title>
+  <meta name="description" content="<%= description %>">
+  <% if (pagePath === '/404.html') { %><meta name="robots" content="noindex"><% } else { %>
+  <link rel="canonical" href="<%= canonical %>">
+  <% } %>
+  <meta property="og:type" content="<%= page.__post ? 'article' : 'website' %>">
+  <meta property="og:site_name" content="<%= journal.name %>">
+  <meta property="og:title" content="<%= title %>">
+  <meta property="og:description" content="<%= description %>">
+  <meta property="og:url" content="<%= canonical %>">
+  <meta property="og:image" content="<%= new URL('/img/' + journal.image, config.url).href %>">
+  <meta property="og:image:alt" content="<%= journal.imageAlt %>">
+  <% if (page.__post) { %><meta property="article:published_time" content="<%= page.date.toISOString() %>"><% } %>
+  <link rel="icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="/css/editorial.css">
+  <meta name="google-adsense-account" content="ca-pub-7465624411296700">
+  <% if (home) { %><script defer src="/js/editorial-search.js"></script><% } %>
+  <% if (pagePath === '/search/') { %><script defer src="/js/journal-search.js"></script><% } %>
+</head>
+<body class="editorial editorial--<%= journal.variant %>">
+  <a class="journal-skip" href="#main-content"><%= journal.skip %></a>
+  <header class="journal-header">
+    <div class="journal-wrap journal-header__inner">
+      <a class="journal-brand" href="/" <% if (home) { %>aria-current="page"<% } %>>
+        <span class="journal-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span><strong><%= journal.name %></strong><small><%= journal.shortName %></small></span>
+      </a>
+      <nav aria-label="<%= journal.navLabel %>">
+        <% for (const [href, label] of [['/archives/', journal.articles], ['/categories/', journal.categories], ['/search/', journal.searchLabel], ['/about/', journal.about]]) { %>
+        <a href="<%= href %>" <% if (pagePath === href) { %>aria-current="page"<% } %>><%= label %></a>
+        <% } %>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="journal-wrap <%= home ? 'journal-home' : 'journal-inner' %>"><%- body %></main>
+
+  <footer class="journal-footer">
+    <div class="journal-wrap journal-footer__inner">
+      <a href="/" class="journal-footer-brand"><strong><%= journal.name %></strong></a>
+      <nav aria-label="<%= journal.legalLabel %>">
+        <a href="<%= journal.relatedUrl %>" hreflang="<%= journal.variant === 'smart' ? 'zh-CN' : 'en' %>"><%= journal.related %></a>
+        <a href="/tags/"><%= journal.tagsLabel %></a>
+        <a href="/terms/"><%= journal.terms %></a>
+        <a href="/privacy/"><%= journal.privacy %></a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
