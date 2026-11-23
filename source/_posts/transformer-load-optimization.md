@@ -53,6 +53,12 @@ Common transformer economic load rates:
 
 Transformer efficiency curve is parabolic, with maximum efficiency typically at 50-75% load rate.
 
+## Worked example: estimating capacity for a new load
+
+For a preliminary capacity estimate, enter 500 kW installed load, a demand factor of 0.7, a coincidence factor of 0.9, a power factor of 0.85, and a margin factor of 1.2 in the [ProEngineerCalc transformer capacity calculator](https://www.proengineercalc.xyz/calculators/transformer-capacity).
+
+The diversified load is 315 kW. Dividing by the power factor and applying the margin gives approximately 444.7 kVA, so the calculator lists 500 kVA as a candidate. This example sizes a new load. To assess an existing transformer, use measured loading and verify redundancy, harmonics, short-circuit levels, and local requirements before changing installed capacity.
+
 ## Harm of "Oversizing"
 
 Many factories prefer large-capacity transformers, thinking "having margin" is safer, but actually:
